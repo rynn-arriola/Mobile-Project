@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Mobile Application Project</string>
+
+    <string name="home_page_title">Home Page</string>
+    <string name="employees_page_title">List of Employees</string>
+    <string name="show_list">Show List of Employees</string>
+    <string name="network_error">Sorry something went wrong, some values on the list could be empty or null.</string>
+</resources>
