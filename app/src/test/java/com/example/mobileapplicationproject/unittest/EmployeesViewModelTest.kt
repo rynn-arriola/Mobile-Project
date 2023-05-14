@@ -10,6 +10,7 @@ import io.mockk.mockk
 import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -38,7 +39,6 @@ class EmployeesViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        viewModel = EmployeesViewModel(getEmployeeUseCase, resource)
     }
 
     @After
@@ -54,7 +54,7 @@ class EmployeesViewModelTest {
 
             val employees = getEmployees()
             coEvery { getEmployeeUseCase.getEmployees() } returns employees
-            viewModel.fetChData()
+            viewModel = EmployeesViewModel(getEmployeeUseCase, resource)
             val expectedState = State.Success(employees)
             val actualState = viewModel.state.value
 
@@ -67,7 +67,7 @@ class EmployeesViewModelTest {
 
             val exception = RuntimeException("network error")
             coEvery { getEmployeeUseCase.getEmployees() } throws exception
-            viewModel.fetChData()
+            viewModel = EmployeesViewModel(getEmployeeUseCase, resource)
             val expectedState = State.Error("network error")
             val actualState = viewModel.state.value
 
@@ -77,8 +77,9 @@ class EmployeesViewModelTest {
     @Test
     fun `sort employee alphabetical`() {
         val unsorted = getEmployeesUnsorted()
-
+        viewModel = EmployeesViewModel(getEmployeeUseCase, resource)
         val sorted = viewModel.sortEmployeesAlphabetical(unsorted)
+
 
         val expected = getEmployeesSorted()
         assertEquals(expected, sorted)

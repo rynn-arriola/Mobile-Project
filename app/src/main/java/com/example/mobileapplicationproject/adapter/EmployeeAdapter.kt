@@ -21,11 +21,11 @@ class EmployeeAdapter : ListAdapter<Employee, EmployeeViewHolder>(diffUtilItemCa
         private val diffUtilItemCallback = object : DiffUtil.ItemCallback<Employee>() {
             override fun areItemsTheSame(
                 oldItem: Employee, newItem: Employee
-            ) = oldItem == newItem
+            ) = oldItem.uuid == newItem.uuid
 
             override fun areContentsTheSame(
                 oldItem: Employee, newItem: Employee
-            ) = oldItem == newItem
+            ) = oldItem.uuid == newItem.uuid
         }
     }
 }

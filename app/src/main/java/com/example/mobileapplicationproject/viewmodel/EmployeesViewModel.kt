@@ -26,7 +26,7 @@ class EmployeesViewModel @Inject constructor(
         get() = _state
 
 
-    fun fetChData() {
+    init {
         viewModelScope.launch {
             _state.postValue(State.Loading)
             try {

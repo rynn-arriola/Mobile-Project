@@ -35,7 +35,6 @@ class EmployeesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle()
-        viewModel.fetChData()
         initViews()
         initObservers()
     }
