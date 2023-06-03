@@ -12,7 +12,7 @@ I focus on what Architecture I should use on the project, on the project structu
 The reason for that is using dependency injection such as dagger/hilt, it will make the app more easy to unit test.
 
 ## How long did you spend on this project?
-6-7 hours.
+6-8 hours
 
 ## Did you make any trade-offs for this project? What would you have done differently with more time?
 if I have more time I would like to modernize this project using JetPack compose. As of now I tried to build this project using the knowledge that I am confident with so I build the UI part using xml files.
