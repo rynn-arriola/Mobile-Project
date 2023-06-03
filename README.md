@@ -6,7 +6,7 @@ I also used Postman to get a full view of the JSON that I am getting, very helpf
 On android studio, click File, Open, then open the location of the project.
 
 ## What areas of the app did you focus on?
-I focus on what Architecture I should the project, on the project structure I use MVVM that uses dagger/hilt.
+I focus on what Architecture I should use on the project, on the project structure I use MVVM that uses dagger/hilt.
 
 ## What was the reason for your focus? What problems were you trying to solve?
 The reason for that is using dependency injection such as dagger/hilt, it will make the app more easy to unit test.
