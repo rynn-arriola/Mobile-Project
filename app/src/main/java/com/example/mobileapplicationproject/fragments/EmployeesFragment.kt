@@ -7,22 +7,33 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.example.mobileapplicationproject.EmployeeApplication
 import com.example.mobileapplicationproject.R
 import com.example.mobileapplicationproject.adapter.EmployeeAdapter
 import com.example.mobileapplicationproject.databinding.FragmentEmployeesBinding
+import com.example.mobileapplicationproject.di.component.DaggerApplicationComponent
+import com.example.mobileapplicationproject.di.component.DaggerFragmentComponent
+import com.example.mobileapplicationproject.di.module.FragmentModule
 import com.example.mobileapplicationproject.util.State
 import com.example.mobileapplicationproject.viewmodel.EmployeesViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class EmployeesFragment : Fragment() {
 
     private var _binding: FragmentEmployeesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<EmployeesViewModel>()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<EmployeesViewModel> { viewModelFactory }
     private val adapter by lazy { EmployeeAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getDependencies()
+    }
     override fun onCreateView(
 
         inflater: LayoutInflater,
@@ -77,6 +88,15 @@ class EmployeesFragment : Fragment() {
 
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
+    }
+
+    private fun getDependencies() {
+        DaggerFragmentComponent
+            .builder()
+            .applicationComponent((requireContext().applicationContext as EmployeeApplication).applicationComponent)
+            .fragmentModule(FragmentModule(this))
+            .build()
+            .inject(this)
     }
 
     override fun onDestroyView() {

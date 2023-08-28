@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileapplicationproject.R
+import com.example.mobileapplicationproject.di.qualifiers.ApplicationContext
 import com.example.mobileapplicationproject.model.response.Employee
 import com.example.mobileapplicationproject.model.response.Employees
 import com.example.mobileapplicationproject.model.usecase.GetEmployeeUseCase
 import com.example.mobileapplicationproject.util.State
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
-@HiltViewModel
+
 class EmployeesViewModel @Inject constructor(
    private val getEmployeeUseCase: GetEmployeeUseCase,
    private val resource: Resources,

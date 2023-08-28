@@ -1,25 +1,31 @@
-package com.example.mobileapplicationproject.di
-
+package com.example.mobileapplicationproject.di.module
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Resources
+import com.example.mobileapplicationproject.EmployeeApplication
+import com.example.mobileapplicationproject.di.qualifiers.ApplicationContext
 import com.example.mobileapplicationproject.model.EmployeeRepoImpl
 import com.example.mobileapplicationproject.model.EmployeesRepo
 import com.example.mobileapplicationproject.model.network.EmployeeApi
 import com.example.mobileapplicationproject.model.usecase.GetEmployeeUseCase
 import com.example.mobileapplicationproject.model.usecase.GetEmployeeUseCaseImpl
 import dagger.Module
+
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
-@InstallIn(SingletonComponent::class)
-class AppModule {
+class ApplicationModule(private val application: EmployeeApplication) {
+
+    @ApplicationContext
+    @Provides
+    @Singleton
+    fun provideApplication(): Context {
+        return application
+    }
 
     @Provides
     @Singleton
@@ -40,10 +46,4 @@ class AppModule {
     fun provideEmployeeUseCase(employeesRepo: EmployeesRepo): GetEmployeeUseCase {
         return GetEmployeeUseCaseImpl(employeesRepo)
     }
-
-    @Provides
-    fun provideResources(application: Application): Resources {
-        return application.resources
-    }
-
 }
